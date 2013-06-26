@@ -1,0 +1,122 @@
+@import "compass";
+@import "mixins";
+
+html{
+	width: 100%;
+	height: 100%;
+	cursor: none;
+	-webkit-user-select: none;
+}
+
+.outer, .inner, .stroke {
+	@include animation-properties(1s);
+}
+
+#wrapper {
+	width: 150px;
+	height: 150px;
+	position: absolute;
+	
+	.outer {
+		opacity: 0;
+		border-radius: 50%;
+		width: 50px;
+		height: 50px;
+		position: absolute;
+		margin: 50px;
+		@include background-image(radial-gradient(center, rgba(9,8,0,1) 0%,rgba(255,255,255,0) 75% ,rgba(255,255,255,0) 100%));
+	}
+
+	.inner {
+		@include background-image(radial-gradient(center, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 65% ,rgba(255,255,255,0) 100%));
+		position: absolute;
+		opacity: 0;
+	}
+	
+	.stroke {
+		border: 0 solid white;
+		background-color: rgba(0,0,0,0);
+		border-radius: 50%;
+		position: absolute;
+	}
+
+	&.start {
+
+		.outer {
+			opacity: 0.8;
+		}
+
+	}
+
+	&.end {
+		
+		.outer {
+			opacity: 0;
+			@include animation-name(outer-gradient-animation);	
+		}
+
+		.inner {
+			@include animation-name(inner-gradient-animation);
+		}
+
+		.stroke { 
+			@include animation-name(stroke-animation);
+		}
+	
+	}	
+
+}
+
+
+
+
+
+
+@include keyframes(outer-gradient-animation) {
+  from {
+    width: 50px;
+    height: 50px;
+    opacity: 0.6;
+  }
+
+  to {
+    width: 150px;
+    height: 150px;
+    margin:0;
+    opacity: 0;
+  }
+}
+
+@include keyframes(stroke-animation) {
+  from {
+    width: 25px;
+    height: 25px;
+    margin: 62px;    
+    border-width: 1px;
+    opacity: 1;
+	}
+
+  to {
+    width: 102px;
+    height: 102px;
+    margin: 24px;  
+    border-width: 5px;
+    opacity: 0;
+  }
+}
+
+@include keyframes(inner-gradient-animation) {
+  from {
+  	opacity: 0.8;
+    width: 0;
+    height: 0;
+    margin: 75px;
+  }
+
+  to {
+    width: 115px;
+    height: 115px;
+    margin: 17px;
+    opacity: 0;
+  }
+}
